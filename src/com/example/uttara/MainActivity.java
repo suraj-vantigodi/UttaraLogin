@@ -20,6 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+ * Author :Suraj Vantigodi
+ * Modified on : 31/8/2015
+ */
+
 public class MainActivity extends Activity {
 
 	Button signup, login;
