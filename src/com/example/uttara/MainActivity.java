@@ -140,7 +140,9 @@ public class MainActivity extends Activity {
 	
 	void HomeScreen()
 	{
+		String usernameSTR = username.getText().toString();
 		Intent intent = new Intent(this, AfterLogin.class);
+		intent.putExtra("username",usernameSTR);
 		startActivity(intent);
 		this.finish();
 	}

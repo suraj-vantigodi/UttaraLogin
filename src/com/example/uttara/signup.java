@@ -1,5 +1,8 @@
 package com.example.uttara;
 
+import java.util.List;
+import java.util.Locale;
+
 import com.example.uttara.MainActivity;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -8,6 +11,8 @@ import com.parse.SignUpCallback;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +26,7 @@ public class signup extends Activity {
 	Button createAcc, login;
 	EditText UserNM, PWD, confirmPWD, Email;
 	TextView tv1;
-
+	
 	String AppId = "3ykqFqEbNxyB5NG4LQt0gyQIg9EX0padc4GKegQt";
 	String ClientID = "wc4AX3dr0HwGPkRu3SH8D4yvMiXmSyX4p02lv2mv";
 
@@ -71,10 +76,10 @@ public class signup extends Activity {
 	}
 
 	void PopulateDB() {
-		String userName = UserNM.getText().toString();
+		final String userName = UserNM.getText().toString();
 		String password = PWD.getText().toString();
 		String confirmPassword = confirmPWD.getText().toString();
-		String EmailStr = Email.getText().toString();
+		final String EmailStr = Email.getText().toString();
 
 		if (userName.equals("") || password.equals("")
 				|| confirmPassword.equals("")) {
@@ -101,6 +106,16 @@ public class signup extends Activity {
 								"Account Successfully created. You Can login now",
 								Toast.LENGTH_LONG).show();
 						createAcc.setEnabled(false);
+						
+						/*
+						 * creating entry in UserDetails DB to store address and user history details
+						 */
+						
+						ParseObject testObject = new ParseObject("UserDetails");						
+						testObject.put("UserName", userName);
+						testObject.put("Email", EmailStr);
+						testObject.saveInBackground();
+						
 						login.setEnabled(true);
 
 					} else {

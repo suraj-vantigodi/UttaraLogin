@@ -5,13 +5,12 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/userTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_marginTop="15dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"        
-        android:text="Login Successful..!!! Welcome to Uttara" />
+        android:layout_gravity="center"               
+        android:text="" />
 
 </LinearLayout>
