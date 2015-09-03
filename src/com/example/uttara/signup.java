@@ -7,6 +7,7 @@ import com.example.uttara.MainActivity;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import android.app.Activity;
@@ -26,10 +27,10 @@ public class signup extends Activity {
 	Button createAcc, login;
 	EditText UserNM, PWD, confirmPWD, Email;
 	TextView tv1;
-	
+
 	String AppId = "3ykqFqEbNxyB5NG4LQt0gyQIg9EX0padc4GKegQt";
 	String ClientID = "wc4AX3dr0HwGPkRu3SH8D4yvMiXmSyX4p02lv2mv";
-
+	String objectId = "";
 	ParseObject testObject = new ParseObject("UserDetails");
 
 	ParseUser user = new ParseUser();
@@ -106,15 +107,33 @@ public class signup extends Activity {
 								"Account Successfully created. You Can login now",
 								Toast.LENGTH_LONG).show();
 						createAcc.setEnabled(false);
-						
+
 						/*
-						 * creating entry in UserDetails DB to store address and user history details
+						 * creating entry in UserDetails DB to store address and
+						 * user history details
 						 */
 						
-						ParseObject testObject = new ParseObject("UserDetails");						
+						final ParseObject testObject = new ParseObject("UserDetails");
+						
 						testObject.put("UserName", userName);
 						testObject.put("Email", EmailStr);
-						testObject.saveInBackground();
+						
+						
+						testObject.saveInBackground(new SaveCallback() {
+
+							@Override
+							public void done(com.parse.ParseException e) {
+								// TODO Auto-generated method stub
+								if (e == null) {
+									// Success!
+									 objectId = testObject.getObjectId().toString();
+									 
+								} else {
+									// Failure!
+								}
+							}
+						});
+						
 						
 						login.setEnabled(true);
 

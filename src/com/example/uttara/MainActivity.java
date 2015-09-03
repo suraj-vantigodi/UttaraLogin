@@ -4,9 +4,12 @@ import com.example.uttara.signup;
 import com.example.uttara.AfterLogin;
 import com.parse.LogInCallback;
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.PushService;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,6 +49,15 @@ public class MainActivity extends Activity {
 		username = (EditText) findViewById(R.id.username);
 		PWD = (EditText) findViewById(R.id.PWD);
 
+		Parse.initialize(this, AppId, ClientID);
+		
+		// To track statistics around application
+		ParseAnalytics.trackAppOpened(getIntent());
+ 
+		// inform the Parse Cloud that it is ready for notifications
+		PushService.setDefaultPushCallback(this, MainActivity.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		
 		signup.setOnClickListener(new View.OnClickListener() {
 
 			@Override
